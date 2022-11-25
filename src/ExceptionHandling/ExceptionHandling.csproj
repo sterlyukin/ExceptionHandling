@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>10</LangVersion>
+        <Title>ExceptionHandling library</Title>
+        <Authors>Nikita Sterlyukin</Authors>
+        <Description>Converts the exception to the corresponding http code</Description>
+        <RepositoryUrl>https://github.com/sterlyukin/ExceptionHandling</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/sterlyukin/ExceptionHandling</PackageProjectUrl>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <PackageId>Sterlyukin.ExceptionHandling</PackageId>
+        <RepositoryType>github</RepositoryType>
+        <PackageTags>exception handling, exception http, result, error, handling</PackageTags>
+        <AssemblyName>ExceptionHandling</AssemblyName>
+        <RootNamespace>ExceptionHandling</RootNamespace>
+        <PackageVersion>1.0.0</PackageVersion>
+        <PackageLicenseUrl>https://github.com/sterlyukin/ExceptionHandling/blob/main/License.md</PackageLicenseUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    </ItemGroup>
+
+</Project>
