@@ -6,6 +6,7 @@
 [![downloads](https://img.shields.io/nuget/dt/Sterlyukin.ExceptionHandling)](https://www.nuget.org/packages/Sterlyukin.ExceptionHandling)
 
 This is repository for `ExceptionHandling` opensource library.
+
 `ExceptionHandling` helps to convert thrown exceptions to valid json object.
 
 This object contains:
@@ -50,7 +51,9 @@ app.AddExceptionHandling<NotFoundException>(HttpStatusCode.NotFound);
 
 ```
 
-Throw exceptions in your code and they will be translated to response with matching HTTP status code
+Throw exceptions in your code and they will be translated to response with matching HTTP status code.
+
+You shouldn't to tune library more. After this it is ready for using.
 
 ```csharp
 
@@ -62,12 +65,43 @@ public sealed class Service
 
     public void GetUnauthorized()
     {
-        throw new UnauthorizedException(Constants.Messages.Unauthorized);
+        throw new UnauthorizedException("You are unauthorized");
     }
 
     public void GetNotFound()
     {
-        throw new NotFoundException(Constants.Messages.NotFound);
+        throw new NotFoundException("Data wasn't found");
+    }
+}
+
+```
+
+```csharp
+
+[ApiController]
+[Route("api/[controller]")]
+public class FakeController : ControllerBase
+{
+    private readonly Service service;
+
+    public FakeController(Service service)
+    {
+        this.service = service ?? throw new ArgumentNullException(nameof(service));
+    }
+    
+    
+    [HttpGet("unauthorized")]
+    public IActionResult GetUnauthorized()
+    {
+        service.GetUnauthorized();
+        return Ok();
+    }
+    
+    [HttpGet("not-found")]
+    public IActionResult GetNotFound()
+    {
+        service.GetNotFound();
+        return Ok();
     }
 }
 
@@ -76,6 +110,7 @@ public sealed class Service
 ## Contribution
 
 Repository is opened for your contribution.
+
 Improve it by creating `Issues` and `Pull requests`.
 
 ### Creating Pull request
