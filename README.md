@@ -25,7 +25,6 @@ dotnet add package Sterlyukin.ExceptionHandling
 Create your custom exceptions that are derived from `ApplicationException`
 
 ```csharp
-
 public sealed class UnauthorizedException : ApplicationException
 {
     public UnauthorizedException(string message) : base(message)
@@ -39,16 +38,13 @@ public sealed class NotFoundException : ApplicationException
     {
     }
 }
-
 ```
 
 Register each exception with matching HTTP status code
 
 ```csharp
-
 app.AddExceptionHandling<UnauthorizedException>(HttpStatusCode.Unauthorized);
 app.AddExceptionHandling<NotFoundException>(HttpStatusCode.NotFound);
-
 ```
 
 Throw exceptions in your code and they will be translated to response with matching HTTP status code.
@@ -56,7 +52,6 @@ Throw exceptions in your code and they will be translated to response with match
 You shouldn't to tune library more. After this it is ready for using.
 
 ```csharp
-
 public sealed class Service
 {
     public void GetSuccess()
@@ -73,11 +68,9 @@ public sealed class Service
         throw new NotFoundException("Data wasn't found");
     }
 }
-
 ```
 
 ```csharp
-
 [ApiController]
 [Route("api/[controller]")]
 public class FakeController : ControllerBase
@@ -88,7 +81,6 @@ public class FakeController : ControllerBase
     {
         this.service = service ?? throw new ArgumentNullException(nameof(service));
     }
-    
     
     [HttpGet("unauthorized")]
     public IActionResult GetUnauthorized()
@@ -104,7 +96,16 @@ public class FakeController : ControllerBase
         return Ok();
     }
 }
+```
 
+Response from API endpoint will be in this format
+
+```json
+{
+   "Code": 401,
+   "TraceId": "15431e12be1ddd3ed487bb182e51b9ee",
+   "Message": "You are unauthorized"
+}
 ```
 
 ## Contribution
