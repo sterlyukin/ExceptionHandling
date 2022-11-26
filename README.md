@@ -11,7 +11,7 @@ This is repository for `ExceptionHandling` opensource library.
 
 This object contains:
 - HTTP code;
-- Text error message.
+- Error message.
 
 ## Installation
 
