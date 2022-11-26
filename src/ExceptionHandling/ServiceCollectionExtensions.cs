@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
     public static void AddExceptionHandling<TException>(
         this IApplicationBuilder app,
         HttpStatusCode code)
-    where TException : Exception
+    where TException : ApplicationException
     {
         if (app is null)
             throw new ArgumentNullException(nameof(app));
@@ -55,10 +55,7 @@ public static class ServiceCollectionExtensions
         {
             Code = code,
             TraceId = Activity.Current?.TraceId.ToString(),
-            Errors = new Dictionary<string, string[]>
-            {
-                { nameof(message), new[] { errorMessage } }
-            }
+            Message = errorMessage
         };
                         
         await context.Response.WriteAsync(JsonSerializer.Serialize(errorResult));

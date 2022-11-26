@@ -12,7 +12,6 @@ namespace ExceptionHandling.Tests;
 public class Tests
 {
     private const string UrlPrefix = "/api/fake";
-    private const string ErrorMessageName = "message";
 
     private const string EmptyContentErrorMessage = "Response content is empty";
     private const string NoMessageInContent = "Response content doesn't contain message";
@@ -49,13 +48,13 @@ public class Tests
         Assert.IsTrue(response.StatusCode == HttpStatusCode.Unauthorized);
         Assert.IsTrue(responseContent.Code == HttpStatusCode.Unauthorized);
 
-        if (!responseContent.Errors.TryGetValue(ErrorMessageName, out var errorMessages))
+        if (string.IsNullOrEmpty(responseContent.Message))
         {
             Assert.Fail(NoMessageInContent);
             return;
         }
         
-        Assert.IsTrue(errorMessages[0] == Constants.Messages.Unauthorized);
+        Assert.IsTrue(responseContent.Message == Constants.Messages.Unauthorized);
     }
     
     [Test]
@@ -72,13 +71,13 @@ public class Tests
         Assert.IsTrue(response.StatusCode == HttpStatusCode.Forbidden);
         Assert.IsTrue(responseContent.Code == HttpStatusCode.Forbidden);
 
-        if (!responseContent.Errors.TryGetValue(ErrorMessageName, out var errorMessages))
+        if (string.IsNullOrEmpty(responseContent.Message))
         {
             Assert.Fail(NoMessageInContent);
             return;
         }
         
-        Assert.IsTrue(errorMessages[0] == Constants.Messages.Forbidden);
+        Assert.IsTrue(responseContent.Message == Constants.Messages.Forbidden);
     }
     
     [Test]
@@ -95,13 +94,13 @@ public class Tests
         Assert.IsTrue(response.StatusCode == HttpStatusCode.NotFound);
         Assert.IsTrue(responseContent.Code == HttpStatusCode.NotFound);
 
-        if (!responseContent.Errors.TryGetValue(ErrorMessageName, out var errorMessages))
+        if (string.IsNullOrEmpty(responseContent.Message))
         {
             Assert.Fail(NoMessageInContent);
             return;
         }
         
-        Assert.IsTrue(errorMessages[0] == Constants.Messages.NotFound);
+        Assert.IsTrue(responseContent.Message == Constants.Messages.NotFound);
     }
     
     [Test]
@@ -118,12 +117,12 @@ public class Tests
         Assert.IsTrue(response.StatusCode == HttpStatusCode.InternalServerError);
         Assert.IsTrue(responseContent.Code == HttpStatusCode.InternalServerError);
 
-        if (!responseContent.Errors.TryGetValue(ErrorMessageName, out var errorMessages))
+        if (string.IsNullOrEmpty(responseContent.Message))
         {
             Assert.Fail(NoMessageInContent);
             return;
         }
         
-        Assert.IsTrue(errorMessages[0] == Constants.Messages.Internal);
+        Assert.IsTrue(responseContent.Message == Constants.Messages.Internal);
     }
 }
