@@ -1,4 +1,4 @@
-# OperationResult
+# ExceptionHandling
 
 [![build](https://github.com/sterlyukin/ExceptionHandling/actions/workflows/build.yml/badge.svg)](https://github.com/sterlyukin/ExceptionHandling/actions/workflows/build.yml)
 [![test](https://github.com/sterlyukin/ExceptionHandling/actions/workflows/test.yml/badge.svg)](https://github.com/sterlyukin/ExceptionHandling/actions/workflows/test.yml)
