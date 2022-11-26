@@ -3,9 +3,9 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ExceptionHandling.FakeAPI;
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using NUnit.Framework;
+using WebHostBuilderExtensions = Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions;
 
 namespace ExceptionHandling.Tests;
 
@@ -20,13 +20,8 @@ public class Tests
 
     public Tests()
     {
-        var webHostBuilder = WebHost.CreateDefaultBuilder()
-            .UseStartup<Startup>();
-        
-        /*var webHostBuilder = WebHost.CreateDefaultBuilder();
-        
+        var webHostBuilder = WebHost.CreateDefaultBuilder();
         WebHostBuilderExtensions.UseStartup<Startup>(webHostBuilder);
-        webHostBuilder.UseStartup<Startup>();*/
 
         server = new TestServer(webHostBuilder);
     }
