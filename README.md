@@ -103,7 +103,6 @@ Response from API endpoint will be in this format
 ```json
 {
    "Code": 401,
-   "TraceId": "15431e12be1ddd3ed487bb182e51b9ee",
    "Message": "You are unauthorized"
 }
 ```

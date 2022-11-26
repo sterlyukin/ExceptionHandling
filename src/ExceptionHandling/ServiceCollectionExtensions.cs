@@ -54,7 +54,6 @@ public static class ServiceCollectionExtensions
         var errorResult = new ErrorResult
         {
             Code = code,
-            TraceId = Activity.Current?.TraceId.ToString(),
             Message = errorMessage
         };
                         

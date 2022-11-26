@@ -16,7 +16,7 @@
         <PackageTags>exception handling, exception http, result, error, handling</PackageTags>
         <AssemblyName>ExceptionHandling</AssemblyName>
         <RootNamespace>ExceptionHandling</RootNamespace>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.1.0</PackageVersion>
         <PackageLicenseUrl>https://github.com/sterlyukin/ExceptionHandling/blob/main/License.md</PackageLicenseUrl>
     </PropertyGroup>
 
