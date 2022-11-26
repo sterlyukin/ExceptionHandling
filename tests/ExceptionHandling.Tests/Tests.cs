@@ -20,8 +20,13 @@ public class Tests
 
     public Tests()
     {
-        var webHostBuilder = WebHost.CreateDefaultBuilder();
-        webHostBuilder.UseStartup<Startup>();
+        var webHostBuilder = WebHost.CreateDefaultBuilder()
+            .UseStartup<Startup>();
+        
+        /*var webHostBuilder = WebHost.CreateDefaultBuilder();
+        
+        WebHostBuilderExtensions.UseStartup<Startup>(webHostBuilder);
+        webHostBuilder.UseStartup<Startup>();*/
 
         server = new TestServer(webHostBuilder);
     }
