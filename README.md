@@ -97,8 +97,9 @@ public class FakeController : ControllerBase
 }
 ```
 
-Response from API endpoint will be in this format
+Response from API endpoint will be in this format with the corresponding status code
 
+HTTP Status Code = 401
 ```json
 {
    "Code": 401,
