@@ -1,28 +1,23 @@
 name: Publish
 
 on:
-  push:
-    branches:
-      - main
-
+  release:
+    types: [published]
+    
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    timeout-minutes: 5
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup .NET SDK
       uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-    - name: Create or update NuGet Package
-      run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/sterlyukin/ExceptionHandling/releases/tag/${{ github.event.release.tag_name }}"
-      working-directory: ./ExceptionHandling   
-    - name: Archive NuGet Package
-      uses: actions/upload-artifact@v1
-      with:
-        name: ExceptionHandling
-        path: ./ExceptionHandling/bin/Release/Sterlyukin.ExceptionHandling.${{ github.event.release.tag_name }}.nupkg
-    - name: Publish Nuget Package
-      run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --no-symbols true
+    - name: Build
+      run: dotnet build -c Release
+    - name: Test
+      run: dotnet test -c Release --no-build
+    - name: Pack nugets
+      run: dotnet pack -c Release --no-build --output .
+    - name: Push to NuGet
+      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

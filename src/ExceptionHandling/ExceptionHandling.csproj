@@ -10,6 +10,7 @@
         <Description>Converts the exception to the corresponding http code</Description>
         <RepositoryUrl>https://github.com/sterlyukin/ExceptionHandling</RepositoryUrl>
         <PackageProjectUrl>https://github.com/sterlyukin/ExceptionHandling</PackageProjectUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <AssemblyVersion>1.0.0</AssemblyVersion>
         <PackageId>Sterlyukin.ExceptionHandling</PackageId>
         <RepositoryType>github</RepositoryType>
