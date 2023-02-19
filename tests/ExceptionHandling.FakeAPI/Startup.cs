@@ -17,6 +17,7 @@ public sealed class Startup
         app.AddExceptionHandling<UnauthorizedException>(HttpStatusCode.Unauthorized);
         app.AddExceptionHandling<ForbiddenException>(HttpStatusCode.Forbidden);
         app.AddExceptionHandling<NotFoundException>(HttpStatusCode.NotFound);
+        app.AddExceptionHandling<TooManyRequestsException>(HttpStatusCode.TooManyRequests);
 
         app.UseRouting();
         app.UseEndpoints(endpoints => endpoints.MapControllers());

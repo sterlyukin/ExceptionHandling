@@ -21,17 +21,17 @@ dotnet add package Sterlyukin.ExceptionHandling
 
 ## Usage
 
-Create your custom exceptions that are derived from `ApplicationException`
+Create your custom exceptions that are derived from `Exception`
 
 ```csharp
-public sealed class UnauthorizedException : ApplicationException
+public sealed class UnauthorizedException : Exception
 {
     public UnauthorizedException(string message) : base(message)
     {
     }
 }
 
-public sealed class NotFoundException : ApplicationException
+public sealed class NotFoundException : Exception
 {
     public NotFoundException(string message) : base(message)
     {

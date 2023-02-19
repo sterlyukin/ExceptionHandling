@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
     public static void AddExceptionHandling<TException>(
         this IApplicationBuilder app,
         HttpStatusCode code)
-    where TException : ApplicationException
+    where TException : Exception
     {
         if (app is null)
             throw new ArgumentNullException(nameof(app));

@@ -42,6 +42,13 @@ public class FakeController : ControllerBase
         return Ok();
     }
     
+    [HttpGet(Constants.Endpoints.TooManyRequests)]
+    public IActionResult GetTooManyRequests()
+    {
+        service.GetTooManyRequests();
+        return Ok();
+    }
+    
     [HttpGet(Constants.Endpoints.Internal)]
     public IActionResult GetInternal()
     {

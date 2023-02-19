@@ -37,76 +37,42 @@ public class Tests
     [Test]
     public async Task Unauthorized_Test()
     {
-        var response = await server.CreateClient().GetAsync($"{UrlPrefix}/{Constants.Endpoints.Unauthorized}");
-        var responseContent = await response.Content.ReadFromJsonAsync<ErrorResult>();
-        if (responseContent is null)
-        {
-            Assert.Fail(EmptyContentErrorMessage);
-            return;            
-        }
-
-        Assert.IsTrue(response.StatusCode == HttpStatusCode.Unauthorized);
-        Assert.IsTrue(responseContent.Code == HttpStatusCode.Unauthorized);
-
-        if (string.IsNullOrEmpty(responseContent.Message))
-        {
-            Assert.Fail(NoMessageInContent);
-            return;
-        }
-        
-        Assert.IsTrue(responseContent.Message == Constants.Messages.Unauthorized);
+        await Test(Constants.Endpoints.Unauthorized, HttpStatusCode.Unauthorized, Constants.Messages.Unauthorized);
     }
     
     [Test]
     public async Task Forbidden_Test()
     {
-        var response = await server.CreateClient().GetAsync($"{UrlPrefix}/{Constants.Endpoints.Forbidden}");
-        var responseContent = await response.Content.ReadFromJsonAsync<ErrorResult>();
-        if (responseContent is null)
-        {
-            Assert.Fail(EmptyContentErrorMessage);
-            return;            
-        }
-
-        Assert.IsTrue(response.StatusCode == HttpStatusCode.Forbidden);
-        Assert.IsTrue(responseContent.Code == HttpStatusCode.Forbidden);
-
-        if (string.IsNullOrEmpty(responseContent.Message))
-        {
-            Assert.Fail(NoMessageInContent);
-            return;
-        }
-        
-        Assert.IsTrue(responseContent.Message == Constants.Messages.Forbidden);
+        await Test(Constants.Endpoints.Forbidden, HttpStatusCode.Forbidden, Constants.Messages.Forbidden);
     }
     
     [Test]
     public async Task NotFound_Test()
     {
-        var response = await server.CreateClient().GetAsync($"{UrlPrefix}/{Constants.Endpoints.NotFound}");
-        var responseContent = await response.Content.ReadFromJsonAsync<ErrorResult>();
-        if (responseContent is null)
-        {
-            Assert.Fail(EmptyContentErrorMessage);
-            return;            
-        }
+        await Test(Constants.Endpoints.NotFound, HttpStatusCode.NotFound, Constants.Messages.NotFound);
+    }
 
-        Assert.IsTrue(response.StatusCode == HttpStatusCode.NotFound);
-        Assert.IsTrue(responseContent.Code == HttpStatusCode.NotFound);
-
-        if (string.IsNullOrEmpty(responseContent.Message))
-        {
-            Assert.Fail(NoMessageInContent);
-            return;
-        }
-        
-        Assert.IsTrue(responseContent.Message == Constants.Messages.NotFound);
+    [Test]
+    public async Task TooManyRequests_Test()
+    {
+        await Test(
+            Constants.Endpoints.TooManyRequests,
+            HttpStatusCode.TooManyRequests,
+            Constants.Messages.TooManyRequests);
     }
     
     [Test]
     public async Task Internal_Test()
     {
-        var response = await server.CreateClient().GetAsync($"{UrlPrefix}/{Constants.Endpoints.Internal}");
+        await Test(Constants.Endpoints.Internal, HttpStatusCode.InternalServerError, Constants.Messages.Internal);
+    }
+
+    private async Task Test(
+        string endpoint,
+        HttpStatusCode responseCode,
+        string responseMessage)
+    {
+        var response = await server.CreateClient().GetAsync($"{UrlPrefix}/{endpoint}");
         var responseContent = await response.Content.ReadFromJsonAsync<ErrorResult>();
         if (responseContent is null)
         {
@@ -114,8 +80,8 @@ public class Tests
             return;            
         }
 
-        Assert.IsTrue(response.StatusCode == HttpStatusCode.InternalServerError);
-        Assert.IsTrue(responseContent.Code == HttpStatusCode.InternalServerError);
+        Assert.IsTrue(response.StatusCode == responseCode);
+        Assert.IsTrue(responseContent.Code == responseCode);
 
         if (string.IsNullOrEmpty(responseContent.Message))
         {
@@ -123,6 +89,6 @@ public class Tests
             return;
         }
         
-        Assert.IsTrue(responseContent.Message == Constants.Messages.Internal);
+        Assert.IsTrue(responseContent.Message == responseMessage);
     }
 }

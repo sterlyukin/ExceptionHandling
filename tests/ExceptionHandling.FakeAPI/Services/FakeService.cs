@@ -23,6 +23,11 @@ public sealed class FakeService
         throw new NotFoundException(Constants.Messages.NotFound);
     }
 
+    public void GetTooManyRequests()
+    {
+        throw new TooManyRequestsException(Constants.Messages.TooManyRequests);
+    }
+
     public void GetInternal()
     {
         throw new Exception(Constants.Messages.Internal);
